@@ -1,5 +1,5 @@
-/* Google Font: Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+/* Google Fonts: Inter + Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -42,22 +42,25 @@ body {
 header {
   background-color: var(--bg-card);
   border-bottom: 1px solid var(--color-border);
-  padding: 24px 0;
+  padding: 36px 0 28px;
   text-align: center;
 }
 
 header h1 {
-  font-size: var(--font-size-2xl);
-  font-weight: 600;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  font-style: italic;
   color: var(--color-text);
-  letter-spacing: -0.5px;
+  letter-spacing: 0.5px;
 }
 
 header .subtitle {
   font-size: var(--font-size-sm);
   color: var(--color-muted);
   font-weight: 300;
-  margin-top: 4px;
+  margin-top: 6px;
+  letter-spacing: 0.3px;
 }
 
 main {
