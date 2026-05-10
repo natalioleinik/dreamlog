@@ -22,13 +22,23 @@ async function connectDB() {
   isConnected = true;
 }
 
+// Debug endpoint — remove after fixing
+app.get('/api/debug', async (_req, res) => {
+  try {
+    await connectDB();
+    res.json({ status: 'connected', uri: process.env.MONGODB_URI ? 'set' : 'missing' });
+  } catch (err) {
+    res.status(500).json({ status: 'failed', error: err.message, uri: process.env.MONGODB_URI ? 'set' : 'missing' });
+  }
+});
+
 // Connect to DB before every request (required for Vercel serverless)
 app.use(async (_req, res, next) => {
   try {
     await connectDB();
     next();
   } catch (err) {
-    res.status(500).json({ error: 'Database connection failed' });
+    res.status(500).json({ error: 'Database connection failed', detail: err.message });
   }
 });
 
