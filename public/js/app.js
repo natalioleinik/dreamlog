@@ -125,13 +125,26 @@ dreamForm.addEventListener('submit', async (e) => {
   saveBtn.textContent = 'Saving...';
 
   try {
-    await apiFetch(`${API}/dreams`, {
+    const dream = await apiFetch(`${API}/dreams`, {
       method: 'POST',
       body: JSON.stringify({ title, description }),
     });
     dreamForm.reset();
     await loadDreams();
-    await loadUsageStatus();
+
+    // Auto-generate image after saving
+    saveBtn.textContent = 'Generating image...';
+    try {
+      await apiFetch(`${API}/images/generate`, {
+        method: 'POST',
+        body: JSON.stringify({ dreamId: dream._id }),
+      });
+      await loadDreams();
+      await loadUsageStatus();
+    } catch (_) {
+      // Image generation failure is non-fatal — dream is already saved
+      await loadUsageStatus();
+    }
   } catch (err) {
     showError(formError, err.message);
   } finally {
